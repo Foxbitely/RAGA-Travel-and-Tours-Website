@@ -56,7 +56,7 @@ export const packages = [
     duration: '3D2N',
     price: 2799,
     priceLabel: 'For as low as',
-    image: '/images/siargao.jpg',
+    image: '/images/siargao.png',
     blurb: 'Sugba Lagoon, the coconut road and a morning at Cloud 9. Three days on the island that surfs.',
   },
   {
@@ -67,7 +67,7 @@ export const packages = [
     duration: '3D2N',
     price: 2799,
     priceLabel: 'For as low as',
-    image: '/images/boracay.jpg',
+    image: '/images/boracay.png',
     blurb: 'White Beach sunsets, paraw sailing and as many watersports as you can fit into a long weekend.',
   },
   {
@@ -78,7 +78,7 @@ export const packages = [
     duration: '3D2N',
     price: 2899,
     priceLabel: 'For as low as',
-    image: '/images/el_nido.jpg',
+    image: '/images/el_nido.png',
     blurb: 'Island hopping through the lagoons, kayaks in the limestone coves, lunch cooked on the sand.',
   },
   {
@@ -89,7 +89,7 @@ export const packages = [
     duration: '3D2N',
     price: 3199,
     priceLabel: 'For as low as',
-    image: '/images/camiguin.jpg',
+    image: '/images/camiguin.png',
     blurb: 'Katibawasan Falls, the Sunken Cemetery and a volcano skyline you can see from the shore.',
   },
   {
@@ -100,7 +100,7 @@ export const packages = [
     duration: '3D2N',
     price: 3199,
     priceLabel: 'For as low as',
-    image: '/images/iloilo.jpg',
+    image: '/images/iloilo.png',
     blurb: 'Molo Church, the windmill fields and an island sunset off the Islas de Gigantes coast.',
   },
   {
@@ -111,7 +111,7 @@ export const packages = [
     duration: '3D2N',
     price: 3299,
     priceLabel: 'For as low as',
-    image: '/images/cebu.jpg',
+    image: '/images/cebu.png',
     blurb: 'Magellan\u2019s Cross and the heritage sites, then a full day on the beaches down south.',
   },
   {
@@ -122,7 +122,7 @@ export const packages = [
     duration: '3D2N',
     price: 4199,
     priceLabel: 'For as low as',
-    image: '/images/manila.jpg',
+    image: '/images/manila.png',
     blurb: 'Intramuros by night, Manila Cathedral, Rizal Park and the food streets in between.',
   },
 
@@ -136,7 +136,7 @@ export const packages = [
     price: 21999,
     priceLabel: 'Promo, per person',
     airline: 'Out MNL via Air China',
-    image: '/images/chengdu.jpg',
+    image: '/images/chengdu.png',
     blurb: 'The panda base, Chongqing\u2019s stacked skyline and the light rail that runs through a building.',
   },
   {
@@ -148,7 +148,7 @@ export const packages = [
     price: 28999,
     priceLabel: 'Promo, per person',
     airline: 'Out MNL via Cebu Pacific',
-    image: '/images/thailand.jpg',
+    image: '/images/thailand.png',
     blurb: 'The Grand Palace, the floating markets and an afternoon at an elephant sanctuary.',
   },
   {
@@ -160,7 +160,7 @@ export const packages = [
     price: 29999,
     priceLabel: 'Promo, per person',
     airline: 'Out MNL via Cebu Pacific',
-    image: '/images/taiwan.jpg',
+    image: '/images/taiwan.png',
     blurb: 'Ximending after dark, the Martyrs\u2019 Shrine and the night markets of Taichung.',
   },
   {
@@ -172,7 +172,7 @@ export const packages = [
     price: 40999,
     priceLabel: 'Promo, per person',
     airline: 'Out MNL via Cebu Pacific',
-    image: '/images/korea.jpg',
+    image: '/images/korea.png',
     blurb: 'The tree-lined lanes of Nami Island, Gyeongbokgung in hanbok, and Starfield Library in Seoul.',
   },
   {
@@ -184,7 +184,7 @@ export const packages = [
     price: 53999,
     priceLabel: 'Promo, per person',
     airline: 'Out MNL via Philippine Airlines',
-    image: '/images/beijing.jpg',
+    image: '/images/beijing.png',
     blurb: 'The Temple of Heaven, the Great Wall, then the Bund and Shanghai Disneyland.',
   },
   {
@@ -196,7 +196,7 @@ export const packages = [
     price: 59999,
     priceLabel: 'Promo, per person',
     note: 'Free Japan visa processing. Minimum 2 pax.',
-    image: '/images/japan.jpg',
+    image: '/images/japan.png',
     blurb: 'A whole day at Tokyo Disneyland, Mt. Fuji and Lake Kawaguchiko, then Asakusa and Shibuya.',
   },
   {
@@ -208,7 +208,7 @@ export const packages = [
     price: 71999,
     priceLabel: 'Promo, per person',
     airline: 'Out MNL via Cebu Pacific',
-    image: '/images/japan2.jpg',
+    image: '/images/japan2.png',
     blurb: 'Osaka Castle in blossom season, Senso-ji, and Mt. Fuji from the lake road.',
   },
 ];
