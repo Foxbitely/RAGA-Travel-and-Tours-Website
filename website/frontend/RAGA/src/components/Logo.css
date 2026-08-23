@@ -1,0 +1,24 @@
+.logo {
+  display: inline-block;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.logo img {
+  width: auto;
+  object-fit: contain;
+}
+
+.logo--sm img {
+  height: 42px;
+}
+
+.logo--lg img {
+  height: 58px;
+}
+
+@media (min-width: 900px) {
+  .logo--sm img {
+    height: 50px;
+  }
+}

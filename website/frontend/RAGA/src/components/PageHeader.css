@@ -1,0 +1,27 @@
+.pagehead {
+  background: var(--blush);
+  border-bottom: 1px solid var(--blush-line);
+  padding-block: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.pagehead__eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 0.75rem;
+}
+
+.pagehead__title {
+  font-size: var(--step-4);
+  max-width: 18ch;
+  margin-bottom: 0.85rem;
+}
+
+.pagehead__lead {
+  font-size: var(--step-1);
+  color: var(--ink-soft);
+  max-width: 58ch;
+}

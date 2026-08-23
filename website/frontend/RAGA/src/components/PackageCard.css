@@ -1,0 +1,110 @@
+.pkg {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: var(--paper);
+  border: 1px solid var(--blush-line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.pkg:hover {
+  transform: translateY(-4px);
+  border-color: var(--rose);
+  box-shadow: var(--shadow-md);
+}
+
+/* ---------- Poster ---------- */
+
+.pkg__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  background: var(--blush);
+  overflow: hidden;
+}
+
+.pkg__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 0.35s ease;
+}
+
+.pkg:hover .pkg__media img {
+  scale: 1.04;
+}
+
+.pkg__badge {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  padding: 0.3rem 0.7rem;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--rose-deep);
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+
+/* ---------- Body ---------- */
+
+.pkg__body {
+  padding: 1.25rem clamp(1.1rem, 3vw, 1.5rem) 1rem;
+}
+
+.pkg__route {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 0.35rem;
+}
+
+.pkg__name {
+  font-size: var(--step-2);
+  margin-bottom: 0.5rem;
+}
+
+.pkg__blurb {
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
+/* ---------- Price row ---------- */
+
+.pkg__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1.1rem clamp(1.1rem, 3vw, 1.5rem);
+  border-top: 2px dashed var(--blush-line);
+}
+
+.pkg__price {
+  display: grid;
+}
+
+.pkg__price-label {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.pkg__price-value {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 800;
+  color: var(--rose);
+  line-height: 1.1;
+}

@@ -1,30 +1,113 @@
-import { NavLink, Link} from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import { nav } from '../data/site';
+import Button from './Button';
+import Logo from './Logo';
+import './Navbar.css';
 
 export default function Navbar() {
-    return (
-        <div className="min-h-screen bg-pink-100 font-serif flex flex-col ">
-            <nav className="bg-white text-pink-50 px-8 py-4 flex items-center justify-between shadow-lg">
-                <NavLink to = "/" className = "text-2xl font-bold tracking-wide">
-                RAGA </NavLink>
-                <div className="space-x-4">
-                    <NavLink to="/" className={({ isActive }) => isActive ? "text-pink-300 font-bold underline" : "text-red-950 hover:text-pink-300 font-bold transition-colors duration-300"}>
-                        Home
-                    </NavLink>
-                    <NavLink to="/about" className={({ isActive }) => isActive ? "text-pink-300 font-bold underline" : "text-red-950 hover:text-pink-300 font-bold transition-colors duration-300"}>
-                        About
-                    </NavLink>
-                    <NavLink to="/catalogues" className={({ isActive }) => isActive ? "text-pink-300 font-bold underline" : "text-red-950 hover:text-pink-300 font-bold transition-colors duration-300"}>
-                        Catalogues
-                    </NavLink>
-                    <NavLink to="/contact" className={({ isActive }) => isActive ? "text-pink-300 font-bold underline" : "text-red-950 hover:text-pink-300 font-bold transition-colors duration-300"}>
-                        Contact Us
-                    </NavLink>
-                    <Link to="/contact" className="ml-4 px-4 py-2 bg-pink-300 text-pink-900 rounded hover:bg-pink-400 transition-colors duration-300"
-                    >
-                        Book Now
-                    </Link>
-                </div>
-            </nav>
-        </ div>
-    );
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { pathname } = useLocation();
+
+  /* Close the mobile menu whenever the route changes */
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  /* Lock body scroll while the mobile menu is open */
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
+  /* Add a hairline + shadow to the header once the page scrolls */
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  /* Escape closes the mobile menu */
+  useEffect(() => {
+    const onKey = (e) => e.key === 'Escape' && setOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  return (
+    <header className={`nav ${scrolled ? 'nav--scrolled' : ''}`}>
+      <div className="nav__inner container">
+        <Logo />
+
+        <nav className="nav__links" aria-label="Main">
+          <ul className="nav__list">
+            {nav.map((item) => (
+              <li key={item.to}>
+                <NavLink
+                  to={item.to}
+                  end={item.to === '/'}
+                  className={({ isActive }) =>
+                    `nav__link ${isActive ? 'nav__link--active' : ''}`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="nav__cta">
+          <Button to="/book">Book Now</Button>
+        </div>
+
+        <button
+          type="button"
+          className="nav__burger"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span className={`nav__burger-box ${open ? 'is-open' : ''}`}>
+            <span />
+            <span />
+            <span />
+          </span>
+        </button>
+      </div>
+
+      {/* Mobile panel */}
+      <div
+        id="mobile-menu"
+        className={`nav__mobile ${open ? 'nav__mobile--open' : ''}`}
+        hidden={!open}
+      >
+        <ul className="nav__mobile-list container">
+          {nav.map((item) => (
+            <li key={item.to}>
+              <NavLink
+                to={item.to}
+                end={item.to === '/'}
+                className={({ isActive }) =>
+                  `nav__mobile-link ${isActive ? 'nav__mobile-link--active' : ''}`
+                }
+              >
+                {item.label}
+              </NavLink>
+            </li>
+          ))}
+          <li className="nav__mobile-cta">
+            <Button to="/book" size="lg" full>
+              Book Now
+            </Button>
+          </li>
+        </ul>
+      </div>
+    </header>
+  );
 }

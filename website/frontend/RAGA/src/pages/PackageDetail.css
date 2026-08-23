@@ -1,0 +1,156 @@
+.detail__crumbs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
+.detail__crumbs a:hover {
+  color: var(--rose);
+}
+
+.detail__layout {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3.5rem);
+}
+
+.detail__poster {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--blush-line);
+}
+
+.detail__route {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 0.5rem;
+}
+
+.detail__title {
+  font-size: var(--step-4);
+  margin-bottom: 0.85rem;
+}
+
+.detail__blurb {
+  font-size: var(--step-1);
+  max-width: 52ch;
+  margin-bottom: 1.75rem;
+}
+
+/* ---------- Facts ---------- */
+
+.detail__facts {
+  display: grid;
+  gap: 1rem;
+  margin: 0 0 1.75rem;
+  padding-block: 1.25rem;
+  border-block: 2px dashed var(--blush-line);
+}
+
+.detail__facts dt {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.2rem;
+}
+
+.detail__facts dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ---------- Price ---------- */
+
+.detail__price {
+  display: grid;
+  margin-bottom: 0.75rem;
+}
+
+.detail__price-label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.detail__price-value {
+  font-family: var(--font-display);
+  font-size: var(--step-4);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--rose);
+}
+
+.detail__note {
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+  margin-bottom: 1.5rem;
+}
+
+.detail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+}
+
+/* ---------- Inclusions ---------- */
+
+.detail__inclusions-title {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 0.85rem;
+}
+
+.detail__inclusions ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.detail__inclusions li {
+  padding: 0.4rem 0.9rem;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--rose-deep);
+  background: var(--blush);
+  border-radius: 999px;
+}
+
+.detail__more-title {
+  font-size: var(--step-3);
+  margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+@media (min-width: 900px) {
+  .detail__layout {
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: start;
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .detail__facts {
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+    gap: 2.5rem;
+  }
+}

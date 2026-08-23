@@ -1,0 +1,33 @@
+.feature {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  background: var(--blush);
+  border: 1px solid var(--blush-line);
+  border-radius: var(--radius);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.feature:hover {
+  transform: translateY(-4px);
+  border-color: var(--rose);
+  box-shadow: var(--shadow-md);
+}
+
+.feature__rule {
+  width: 40px;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--rose);
+}
+
+.feature__title {
+  font-size: var(--step-1);
+  color: var(--rose);
+}
+
+.feature__body {
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}

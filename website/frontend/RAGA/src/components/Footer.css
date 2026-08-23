@@ -1,0 +1,83 @@
+/* Light footer, matching the wireframe — the logo artwork has black type
+   in it, so a dark panel would swallow half the wordmark. */
+
+.footer {
+  background: var(--blush);
+  border-top: 1px solid var(--blush-line);
+  color: var(--ink-soft);
+}
+
+.footer__inner {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3rem);
+  padding-block: clamp(2.75rem, 6vw, 4rem);
+}
+
+.footer__tagline {
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  font-weight: 500;
+  color: var(--ink);
+  max-width: 30ch;
+  margin-block: 1rem 0.85rem;
+}
+
+.footer__facebook {
+  font-size: var(--step--1);
+  font-weight: 500;
+  color: var(--rose);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.footer__facebook:hover {
+  color: var(--rose-deep);
+}
+
+.footer__heading {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+.footer__list {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  font-size: var(--step--1);
+}
+
+.footer__link {
+  transition: color 0.18s ease;
+}
+
+.footer__link:hover {
+  color: var(--rose);
+}
+
+.footer__muted {
+  max-width: 30ch;
+}
+
+.footer__bar {
+  border-top: 1px solid var(--blush-line);
+}
+
+.footer__bar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  justify-content: space-between;
+  padding-block: 1.15rem;
+  font-size: 0.8rem;
+}
+
+@media (min-width: 720px) {
+  .footer__inner {
+    grid-template-columns: 1.4fr 1fr 1.2fr;
+  }
+}

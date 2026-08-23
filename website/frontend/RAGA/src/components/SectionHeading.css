@@ -1,0 +1,31 @@
+.sh {
+  margin-bottom: clamp(2rem, 5vw, 3.25rem);
+}
+
+.sh__eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 0.75rem;
+}
+
+.sh__title {
+  margin-bottom: 0.75rem;
+}
+
+.sh__lead {
+  font-size: var(--step-1);
+  color: var(--ink-soft);
+  max-width: 56ch;
+}
+
+.sh--center {
+  text-align: center;
+}
+
+.sh--center .sh__lead {
+  margin-inline: auto;
+}
