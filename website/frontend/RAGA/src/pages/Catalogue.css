@@ -36,15 +36,23 @@
   transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
 
-.cat__filter:hover {
-  border-color: var(--rose);
-  color: var(--rose);
-}
-
 .cat__filter--on {
   background: var(--rose);
   border-color: var(--rose);
   color: #fff;
+}
+
+/* Hover is scoped to the unselected buttons. Without the :not(), the
+   hover rule outranks .cat__filter--on and paints rose text onto the
+   rose background, blanking out the label. */
+.cat__filter:not(.cat__filter--on):hover {
+  border-color: var(--rose);
+  color: var(--rose);
+}
+
+.cat__filter--on:hover {
+  background: var(--rose-deep);
+  border-color: var(--rose-deep);
 }
 
 .cat__note {

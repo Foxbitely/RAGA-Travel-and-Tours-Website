@@ -61,13 +61,19 @@
   transition: scale 0.22s ease;
 }
 
-.nav__link:hover {
-  color: var(--ink);
-}
-
 .nav__link--active {
   color: var(--rose);
   font-weight: 700;
+}
+
+/* Scoped for the same reason as the catalogue filters — an unscoped
+   :hover would drag the active link back to ink on hover. */
+.nav__link:not(.nav__link--active):hover {
+  color: var(--ink);
+}
+
+.nav__link--active:hover {
+  color: var(--rose-deep);
 }
 
 .nav__link--active::after {

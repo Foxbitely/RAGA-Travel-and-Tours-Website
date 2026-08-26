@@ -34,7 +34,7 @@
   box-shadow: var(--shadow-md);
 }
 
-.btn--solid:hover {
+.btn--solid:not(:disabled):hover {
   background: var(--rose-deep);
   transform: translateY(-2px);
 }
@@ -45,7 +45,7 @@
   color: var(--rose);
 }
 
-.btn--outline:hover {
+.btn--outline:not(:disabled):hover {
   background: var(--rose);
   border-color: var(--rose);
   color: var(--paper);
@@ -56,12 +56,12 @@
   color: var(--rose);
 }
 
-.btn--ghost:hover {
+.btn--ghost:not(:disabled):hover {
   background: var(--blush);
   transform: translateY(-2px);
 }
 
-.btn:active {
+.btn:not(:disabled):active {
   transform: translateY(0);
 }
 
