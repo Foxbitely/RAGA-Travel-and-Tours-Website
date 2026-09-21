@@ -15,7 +15,7 @@
   position: absolute;
   inset: 0;
   z-index: -2;
-  background-image: url('/hero.jpg');
+  background-image: url('/images/window-view.jpg');
   background-size: cover;
   background-position: center;
 }
