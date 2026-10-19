@@ -6,7 +6,6 @@ export default function Hero() {
   return (
     <section className="hero">
       <div className="hero__media" aria-hidden="true" />
-      <div className="hero__wash" aria-hidden="true" />
 
       <div className="hero__inner container">
         <p className="hero__eyebrow">{hero.eyebrow}</p>

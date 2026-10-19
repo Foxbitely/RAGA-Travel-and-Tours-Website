@@ -20,19 +20,6 @@
   background-position: center;
 }
 
-/* Magenta wash so the headline stays readable over any photograph */
-.hero__wash {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(
-    150deg,
-    rgba(140, 18, 70, 0.92) 0%,
-    rgba(194, 24, 91, 0.86) 55%,
-    rgba(232, 38, 111, 0.82) 100%
-  );
-}
-
 .hero__inner {
   text-align: center;
   padding-block: clamp(3.5rem, 9vw, 5.5rem);
