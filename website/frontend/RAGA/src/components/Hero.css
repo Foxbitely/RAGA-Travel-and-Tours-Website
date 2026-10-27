@@ -15,7 +15,8 @@
   position: absolute;
   inset: 0;
   z-index: -2;
-  background-image: url('/images/window-view.jpg');
+  background-color:var(--rose);
+  /* background-image: url('/images/window-view.jpg'); */
   background-size: cover;
   background-position: center;
 }
