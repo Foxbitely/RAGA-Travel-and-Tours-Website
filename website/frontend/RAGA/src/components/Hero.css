@@ -1,29 +1,59 @@
 /* Centred over a photograph, matching the mobile wireframe.
-   The layout is identical at every width — only the scale changes. */
+   The photos crossfade behind the text every few seconds. */
 
 .hero {
   position: relative;
   isolation: isolate;
   display: grid;
   place-items: center;
-  min-height: clamp(420px, 68vh, 560px);
+  min-height: clamp(440px, 70vh, 580px);
   overflow: hidden;
   color: #fff;
+  background: #1b1023; /* shows for a moment before the first photo loads */
 }
 
-.hero__media {
+/* ---------- Slides ---------- */
+
+.hero__slides {
   position: absolute;
   inset: 0;
   z-index: -2;
-  /*background-color:var(--rose);*/
-  background-image: url('/images/window-view.jpg');
+}
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
   background-size: cover;
   background-position: center;
+  opacity: 0;
+  transform: scale(1);
+  transition:
+    opacity 1.4s ease,
+    transform 7.5s linear;
 }
+
+/* The visible photo fades in and drifts very slightly closer */
+.hero__slide.is-active {
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+/* Darkens every photo evenly so the white text stays readable,
+   whether the photo is a night skyline or a bright beach. */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at center, rgba(15, 8, 25, 0.25) 0%, rgba(15, 8, 25, 0.55) 100%),
+    linear-gradient(180deg, rgba(15, 8, 25, 0.15) 0%, rgba(15, 8, 25, 0.45) 100%);
+}
+
+/* ---------- Text ---------- */
 
 .hero__inner {
   text-align: center;
-  padding-block: clamp(3.5rem, 9vw, 5.5rem);
+  padding-block: clamp(3.5rem, 9vw, 5.5rem) clamp(4.5rem, 10vw, 6.5rem);
 }
 
 .hero__eyebrow {
@@ -32,8 +62,9 @@
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(255, 255, 255, 0.9);
   margin-bottom: 0.9rem;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
 }
 
 .hero__title {
@@ -41,13 +72,101 @@
   max-width: 16ch;
   margin-inline: auto;
   margin-bottom: 1rem;
-  text-shadow: 0 2px 18px rgba(88, 8, 42, 0.35);
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.4);
 }
 
 .hero__body {
   font-size: var(--step-1);
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.95);
   max-width: 46ch;
   margin-inline: auto;
   margin-bottom: 2.25rem;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ---------- Controls ---------- */
+
+.hero__controls {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1rem, 3vw, 1.6rem);
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.4rem 0.75rem 0.4rem 0.45rem;
+  background: rgba(15, 8, 25, 0.35);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+}
+
+.hero__pause {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.18s ease;
+}
+
+.hero__pause:hover {
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.hero__pause svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+.hero__dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.hero__dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.hero__dot:not(.is-active):hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.hero__dot.is-active {
+  width: 24px;
+  background: #fff;
+}
+
+/* Larger tap targets on touch screens without changing the look */
+@media (pointer: coarse) {
+  .hero__dot {
+    position: relative;
+  }
+  .hero__dot::after {
+    content: '';
+    position: absolute;
+    inset: -10px -4px;
+  }
+}
+
+/* No drifting zoom for visitors who have asked for less motion.
+   The slideshow also stops auto-advancing for them (see Hero.jsx). */
+@media (prefers-reduced-motion: reduce) {
+  .hero__slide,
+  .hero__slide.is-active {
+    transform: none;
+    transition: opacity 0.01ms;
+  }
 }

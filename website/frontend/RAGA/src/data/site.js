@@ -19,6 +19,13 @@ export const hero = {
   title: 'Your Adventure Awaits',
   body: 'Explore our different travel packages designed by people who love to travel.',
   cta: { label: 'Explore Now', to: '/catalogues' },
+  slides: [
+    '/images/window-view.jpg',
+    '/images/hero/landing1.png',
+    '/images/hero/landing2.png',
+    '/images/hero/landing3.png',
+    '/images/hero/landing4.png',
+  ],
 };
 
 export const features = [
