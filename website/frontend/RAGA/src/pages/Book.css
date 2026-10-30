@@ -88,10 +88,57 @@
 
 /* ---------- Confirmation ---------- */
 
-.book__done-body {
-  font-size: var(--step-1);
-  max-width: 58ch;
-  margin-bottom: 1.75rem;
+.book__done {
+  max-width: 640px;
+}
+
+.book__done-card {
+  padding: 1.4rem 1.5rem;
+  font-size: var(--step-0);
+}
+
+.book__done-card .formstatus__title {
+  font-size: var(--step-2);
+  margin-bottom: 0.4rem;
+}
+
+.book__done-card .formstatus__icon {
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.05rem;
+}
+
+.book__done-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin: 0 0 1.75rem;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.book__done-summary > div {
+  padding: 0.9rem 1.1rem;
+  background: var(--paper);
+}
+
+.book__done-summary dt {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.15rem;
+}
+
+.book__done-summary dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
 }
 
 .book__done-actions {

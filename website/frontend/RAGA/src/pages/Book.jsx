@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PageHeader from '../components/PageHeader';
 import FormField from '../components/FormField';
 import FormStatus from '../components/FormStatus';
@@ -6,6 +6,16 @@ import Button from '../components/Button';
 import { packages, peso } from '../data/site';
 import { sendBookingRequest } from '../lib/emailjs';
 import './Book.css';
+
+/** "2026-12-12" -> "12 December 2026". Parsed by hand so the date
+    never shifts by a day in the visitor's time zone. */
+function formatDate(iso) {
+  if (!iso) return '\u2014';
+  const [y, m, d] = iso.split('-').map(Number);
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+    'August', 'September', 'October', 'November', 'December'];
+  return `${d} ${months[m - 1]} ${y}`;
+}
 
 const EMPTY = {
   name: '',
@@ -28,6 +38,21 @@ export default function Book() {
     setValues((v) => ({ ...v, [key]: e.target.value }));
 
   const chosen = packages.find((p) => p.id === values.packageId);
+  const errorRef = useRef(null);
+
+  // Start the confirmation at the top of the page, not where the
+  // visitor was scrolled to when they pressed send.
+  useEffect(() => {
+    if (confirmed) window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [confirmed]);
+
+  // Bring an error message into view so the visitor actually sees it.
+  useEffect(() => {
+    if (status === 'error' && errorRef.current) {
+      errorRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      errorRef.current.focus({ preventScroll: true });
+    }
+  }, [status]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,35 +92,59 @@ export default function Book() {
 
   if (confirmed) {
     return (
-      <>
-        <PageHeader
-          eyebrow="Booking"
-          title="Request received"
-          lead="Nothing has been charged yet. We will confirm availability first."
-        />
-        <section className="section">
-          <div className="container book__done">
-            <p className="book__done-body">
-              Thanks {values.name || 'there'}. We have your request
+      <section className="section">
+        <div className="container">
+        <div className="book__done">
+          <FormStatus
+            tone="success"
+            title="Booking request sent"
+            className="book__done-card"
+          >
+            <p>
+              Thank you, {values.name || 'traveller'}. We have your request
               {chosen ? ` for ${chosen.name}` : ''} and will email you within one
-              working day to confirm dates and take payment.
+              working day to confirm availability.
             </p>
-            <div className="book__done-actions">
-              <Button to="/catalogues">Back to the catalogue</Button>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setValues(EMPTY);
-                  setConfirmed(false);
-                  setStatus('idle');
-                }}
-              >
-                Make another request
-              </Button>
-            </div>
+            <p>Nothing has been charged.</p>
+          </FormStatus>
+
+          {chosen && (
+            <dl className="book__done-summary">
+              <div>
+                <dt>Package</dt>
+                <dd>{chosen.name}</dd>
+              </div>
+              <div>
+                <dt>Departure</dt>
+                <dd>{formatDate(values.departure)}</dd>
+              </div>
+              <div>
+                <dt>Travellers</dt>
+                <dd>{values.travellers}</dd>
+              </div>
+              <div>
+                <dt>{chosen.priceLabel}</dt>
+                <dd>{peso(chosen.price)}</dd>
+              </div>
+            </dl>
+          )}
+
+          <div className="book__done-actions">
+            <Button to="/catalogues">Back to the catalogue</Button>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setValues(EMPTY);
+                setConfirmed(false);
+                setStatus('idle');
+              }}
+            >
+              Make another request
+            </Button>
           </div>
-        </section>
-      </>
+        </div>
+        </div>
+      </section>
     );
   }
 
@@ -110,7 +159,11 @@ export default function Book() {
       <section className="section">
         <div className="container book__layout">
           <div>
-            {status === 'error' && <FormStatus tone="error">{error}</FormStatus>}
+            {status === 'error' && (
+              <FormStatus ref={errorRef} tone="error" title="Request not sent">
+                {error}
+              </FormStatus>
+            )}
 
             <form className="book__form" onSubmit={handleSubmit}>
             <FormField
@@ -140,6 +193,7 @@ export default function Book() {
               name="packageId"
               value={values.packageId}
               onChange={update('packageId')}
+              disabled={sending}
               required
             >
               <option value="">Choose a package</option>

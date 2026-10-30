@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PageHeader from '../components/PageHeader';
 import FormField from '../components/FormField';
 import FormStatus from '../components/FormStatus';
@@ -13,9 +13,20 @@ export default function Contact() {
   const [values, setValues] = useState(EMPTY);
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
   const [error, setError] = useState('');
+  const statusRef = useRef(null);
 
   const update = (key) => (e) =>
     setValues((v) => ({ ...v, [key]: e.target.value }));
+
+  // The message appears above the form, but the visitor has just pressed
+  // a button at the bottom of it. Bring the message into view so they
+  // see it, especially on a phone.
+  useEffect(() => {
+    if ((status === 'sent' || status === 'error') && statusRef.current) {
+      statusRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      statusRef.current.focus({ preventScroll: true });
+    }
+  }, [status]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,13 +68,17 @@ export default function Contact() {
             <h2 className="contact__h2">Send us a message</h2>
 
             {status === 'sent' && (
-              <FormStatus tone="success">
-                Message sent. We will reply to your email within one working day.
+              <FormStatus ref={statusRef} tone="success" title="Message sent">
+                Thank you. We will reply to your email within one working day.
               </FormStatus>
             )}
-            {status === 'error' && <FormStatus tone="error">{error}</FormStatus>}
+            {status === 'error' && (
+              <FormStatus ref={statusRef} tone="error" title="Message not sent">
+                {error}
+              </FormStatus>
+            )}
 
-            <form className="contact__form" onSubmit={handleSubmit} noValidate={false}>
+            <form className="contact__form" onSubmit={handleSubmit}>
               <FormField
                 label="Full name"
                 name="name"
@@ -132,32 +147,6 @@ export default function Contact() {
 
           <aside className="contact__side">
             <div className="contact__panel">
-              <h2 className="contact__h3">Contact information</h2>
-              <dl className="contact__list">
-                <div className="contact__row">
-                  <dt>Email</dt>
-                  <dd>
-                    <a href={`mailto:${contact.email}`}>{contact.email}</a>
-                  </dd>
-                </div>
-                <div className="contact__row">
-                  <dt>Phone</dt>
-                  <dd>
-                    {contact.phones.map((phone) => (
-                      <a key={phone} href={`tel:${phone.replace(/\s/g, '')}`}>
-                        {phone}
-                      </a>
-                    ))}
-                  </dd>
-                </div>
-                <div className="contact__row">
-                  <dt>Address</dt>
-                  <dd>{contact.address}</dd>
-                </div>
-              </dl>
-            </div>
-
-            <div className="contact__panel">
               <h2 className="contact__h3">Office hours</h2>
               <dl className="contact__hours">
                 {contact.hours.map((row) => (
@@ -167,6 +156,9 @@ export default function Contact() {
                   </div>
                 ))}
               </dl>
+              <p className="contact__note">
+                Messages sent outside these hours are answered on the next working day.
+              </p>
             </div>
           </aside>
         </div>
