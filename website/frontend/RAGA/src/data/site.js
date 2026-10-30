@@ -221,6 +221,8 @@ export const inclusions = ['Airfare', 'Hotel', 'Meals', 'Tour', 'Transfer'];
 
 export const story = {
   heading: 'Our Story',
+  image: '/images/about_us.jpg',
+  imageAlt: 'The RAGA Travel and Tours team',
   date: 'October 1, 2024: A new era of exploration',
   paragraphs: [
     'We did not just start a travel company, we started a movement to make the world more accessible. Since our founding in late 2024 we have been on a mission to design travel packages that balance must-see landmarks with those quiet, locals-only moments.',
