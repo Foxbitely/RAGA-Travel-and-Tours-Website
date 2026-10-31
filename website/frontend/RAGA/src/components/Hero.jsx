@@ -4,31 +4,49 @@ import Button from './Button';
 import './Hero.css';
 
 const SLIDE_MS = 6000; // how long each photo stays on screen
+const slides = hero.slides ?? [];
 
-/** True when the visitor has asked their device to reduce motion. */
-function usePrefersReducedMotion() {
-  const query = '(prefers-reduced-motion: reduce)';
-  const [reduced, setReduced] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia(query).matches
-  );
+/**
+ * Downloads and decodes the photos one at a time, in slideshow order,
+ * so the first photo isn't fighting the others for bandwidth.
+ * Returns the set of photos that are ready to fade in without a blank flash.
+ */
+function useLoadedImages(srcs) {
+  const [loaded, setLoaded] = useState(() => new Set());
 
   useEffect(() => {
-    const mq = window.matchMedia(query);
-    const onChange = () => setReduced(mq.matches);
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []);
+    let cancelled = false;
 
-  return reduced;
+    (async () => {
+      for (const src of srcs) {
+        const img = new Image();
+        img.src = src;
+        // A broken photo is still marked done so it can't stall the slideshow.
+        await img.decode().catch(() => {});
+        if (cancelled) return;
+        setLoaded((prev) => new Set(prev).add(src));
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [srcs]);
+
+  return loaded;
 }
 
 export default function Hero() {
-  const slides = hero.slides ?? [];
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const reduced = usePrefersReducedMotion();
+  const loaded = useLoadedImages(slides);
 
-  const canPlay = slides.length > 1 && !paused && !reduced;
+  // Only move on once the next photo is ready, otherwise the crossfade
+  // fades into the dark background while the photo is still downloading.
+  // Reduced-motion visitors still get the slideshow (a plain crossfade
+  // isn't motion); Hero.css drops the zoom for them instead.
+  const nextReady = loaded.has(slides[(index + 1) % slides.length]);
+  const canPlay = slides.length > 1 && !paused && nextReady;
 
   // Advance to the next photo. Restarting the timer whenever `index`
   // changes means clicking a dot gives that photo its full time too.
@@ -48,7 +66,11 @@ export default function Hero() {
           <div
             key={src}
             className={`hero__slide ${i === index ? 'is-active' : ''}`}
-            style={{ backgroundImage: `url('${src}')` }}
+            style={
+              i === index || loaded.has(src)
+                ? { backgroundImage: `url('${src}')` }
+                : undefined
+            }
           />
         ))}
       </div>

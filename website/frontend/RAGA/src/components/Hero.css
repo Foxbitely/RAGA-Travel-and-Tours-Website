@@ -27,15 +27,20 @@
   background-position: center;
   opacity: 0;
   transform: scale(1);
+  /* The outgoing photo keeps its zoom while it fades out, then resets
+     only once it's invisible — no visible zoom-out mid-crossfade. */
   transition:
     opacity 1.4s ease,
-    transform 7.5s linear;
+    transform 0s linear 1.4s;
 }
 
 /* The visible photo fades in and drifts very slightly closer */
 .hero__slide.is-active {
   opacity: 1;
   transform: scale(1.06);
+  transition:
+    opacity 1.4s ease,
+    transform 7.5s linear;
 }
 
 /* Darkens every photo evenly so the white text stays readable,
@@ -161,12 +166,12 @@
   }
 }
 
-/* No drifting zoom for visitors who have asked for less motion.
-   The slideshow also stops auto-advancing for them (see Hero.jsx). */
+/* No drifting zoom for visitors who have asked for less motion —
+   the photos just crossfade. The pause button stops it entirely. */
 @media (prefers-reduced-motion: reduce) {
   .hero__slide,
   .hero__slide.is-active {
     transform: none;
-    transition: opacity 0.01ms;
+    transition: opacity 1.4s ease;
   }
 }

@@ -21,10 +21,10 @@ export const hero = {
   cta: { label: 'Explore Now', to: '/catalogues' },
   slides: [
     '/images/window-view.jpg',
-    '/images/hero/landing1.png',
-    '/images/hero/landing2.png',
-    '/images/hero/landing3.png',
-    '/images/hero/landing4.png',
+    '/images/hero/landing1.jpg',
+    '/images/hero/landing2.jpg',
+    '/images/hero/landing3.jpg',
+    '/images/hero/landing4.jpg',
   ],
 };
 
