@@ -57,7 +57,7 @@ export default function Hero() {
       SLIDE_MS
     );
     return () => clearTimeout(timer);
-  }, [index, canPlay, slides.length]);
+  }, [index, canPlay]);
 
   return (
     <section className="hero" aria-roledescription="carousel" aria-label="Featured destinations">

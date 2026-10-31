@@ -6,14 +6,13 @@ import Logo from './Logo';
 import './Navbar.css';
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { pathname } = useLocation();
 
-  /* Close the mobile menu whenever the route changes */
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  /* The mobile menu remembers the page it was opened on, so it closes
+     by itself whenever the route changes. */
+  const [openOn, setOpenOn] = useState(null);
+  const open = openOn === pathname;
 
   /* Lock body scroll while the mobile menu is open */
   useEffect(() => {
@@ -33,7 +32,7 @@ export default function Navbar() {
 
   /* Escape closes the mobile menu */
   useEffect(() => {
-    const onKey = (e) => e.key === 'Escape' && setOpen(false);
+    const onKey = (e) => e.key === 'Escape' && setOpenOn(null);
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, []);
@@ -71,7 +70,7 @@ export default function Navbar() {
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="mobile-menu"
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => setOpenOn(open ? null : pathname)}
         >
           <span className={`nav__burger-box ${open ? 'is-open' : ''}`}>
             <span />
