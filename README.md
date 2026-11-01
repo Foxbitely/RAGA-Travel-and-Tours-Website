@@ -99,6 +99,7 @@ website/frontend/RAGA/
 │   └── pages/           one file per page
 ├── .env.example         EmailJS settings template (copy to .env)
 ├── index.html
+├── vercel.json          Vercel routing (every page → index.html)
 └── vite.config.js
 ```
 
@@ -117,12 +118,20 @@ Each component and page has a matching `.css` file next to it.
 
 ## Deploying
 
-Run `npm run build` and upload the `dist/` folder to any static host, such as Netlify, Vercel, Cloudflare Pages or GitHub Pages. Set the four `VITE_EMAILJS_*` variables in the host's settings, because they are read at build time.
+### Vercel (set up)
 
-This is a single-page app, so the host must send every path to `index.html`. Otherwise, opening or refreshing a page like `/catalogues/japan` returns a 404:
+1. Import this GitHub repository at [vercel.com/new](https://vercel.com/new).
+2. Set **Root Directory** to `website/frontend/RAGA`. Vercel then detects Vite and uses `npm run build` with output folder `dist`.
+3. Under **Environment Variables**, add the four `VITE_EMAILJS_*` values from your `.env`. They are read at build time, so redeploy after changing them.
+4. Deploy. Every push to `main` deploys again automatically.
 
-- **Netlify:** create `public/_redirects` containing `/*  /index.html  200`
-- **Vercel:** add a `vercel.json` with `{ "rewrites": [{ "source": "/(.*)", "destination": "/" }] }`
+[`vercel.json`](website/frontend/RAGA/vercel.json) sends every page address to `index.html`, so opening or refreshing a page like `/catalogues/japan` works instead of returning a 404.
+
+After the first deploy, add the site's domain (for example `your-project.vercel.app`) to the allowed domains in EmailJS.
+
+### Other hosts
+
+Run `npm run build` and upload the `dist/` folder to any static host, and set the `VITE_EMAILJS_*` variables there. The host must also send every path to `index.html`. On Netlify, for example, create `public/_redirects` containing `/*  /index.html  200`.
 
 ## Contact
 
